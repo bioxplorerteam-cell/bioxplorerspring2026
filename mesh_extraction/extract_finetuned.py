@@ -35,17 +35,36 @@ def load_finetuned_model(base_model_path: str, adapter_path: str):
     return model, tokenizer
 
 
-def extract_with_finetuned(model, tokenizer, abstract: str, title: str = "", device: str = "cuda") -> str:
-    """Extract entities using fine-tuned model"""
+def extract_with_finetuned(model, tokenizer, abstract: str, title: str = "", device: str = "cuda", 
+                          temperature: float = 0.7, top_p: float = 0.97, max_tokens: int = 1280, 
+                          rep_penalty: float = 1.02) -> str:
+    """Extract entities using fine-tuned model with configurable generation parameters"""
     
     instruction = """Extract ALL MeSH (Medical Subject Headings) terms from this biomedical abstract.
 
-IMPORTANT:
-- Include ALL relevant entities: diseases, chemicals, organisms, procedures, demographics
-- ALWAYS include: Humans, Animals, specific species when mentioned
-- Include age groups (Adult, Child, Aged, Middle Aged) and gender when relevant
-- Return as JSON array only
+EXTRACTION PHILOSOPHY: BE COMPREHENSIVE - when in doubt, INCLUDE the term.
 
+MANDATORY EXTRACTIONS (always check for these):
+1. Subject: Humans (if patients/participants mentioned), Animals (if animal study)
+2. Species: Mice, Rats, Dogs, etc. if mentioned
+3. Demographics: Extract ALL relevant age groups (Adolescent, Adult, Aged, Middle Aged, Child, Infant, Young Adult)
+4. Gender: Male, Female if mentioned or implied
+5. Study Design: Retrospective Studies, Prospective Studies, Case-Control Studies, Cohort Studies, Cross-Sectional Studies, Follow-Up Studies
+6. Locations: All anatomical structures, organs, tissues mentioned
+7. Methods: All techniques, procedures, imaging modalities, laboratory assays
+8. Conditions: ALL diseases, symptoms, complications mentioned
+9. Substances: ALL drugs, chemicals, proteins, genes, biomarkers
+10. Outcomes: Treatment Outcome, Prognosis if discussing results
+11. Geography: Country names if mentioned (China, United States, Japan, etc.)
+
+EXAMPLES OF COMPREHENSIVE EXTRACTION:
+- "elderly patients" → ["Humans", "Aged"]
+- "adults aged 50-65" → ["Humans", "Adult", "Middle Aged"]  
+- "retrospective cohort study" → ["Retrospective Studies", "Cohort Studies"]
+- "male and female subjects" → ["Humans", "Male", "Female"]
+- "patients in China" → ["Humans", "China"]
+
+Return ONLY a JSON array. Extract generously - completeness is more important than precision.
 """
     
     if title:
@@ -68,15 +87,15 @@ IMPORTANT:
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=2048)
     inputs = {k: v.to(device) for k, v in inputs.items()}
     
-    # Generate
+    # Generate with configurable parameters
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=768,
-            temperature=0.3,
-            top_p=0.9,
+            max_new_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
             do_sample=True,
-            repetition_penalty=1.1,
+            repetition_penalty=rep_penalty,
             pad_token_id=tokenizer.eos_token_id
         )
     
@@ -96,6 +115,10 @@ def main():
     parser.add_argument('--max_samples', type=int, default=10, help='Number of samples to process')
     parser.add_argument('--skip', type=int, default=0, help='Articles to skip')
     parser.add_argument('--output_file', type=str, default=None, help='Output JSON file')
+    parser.add_argument('--temperature', type=float, default=0.7, help='Sampling temperature (0.1-1.0)')
+    parser.add_argument('--top_p', type=float, default=0.97, help='Nucleus sampling threshold')
+    parser.add_argument('--max_tokens', type=int, default=1280, help='Max new tokens to generate')
+    parser.add_argument('--rep_penalty', type=float, default=1.02, help='Repetition penalty')
     args = parser.parse_args()
     
     if args.output_file is None:
@@ -126,7 +149,11 @@ def main():
             model, tokenizer,
             article.abstract,
             article.title,
-            device=device
+            device=device,
+            temperature=args.temperature,
+            top_p=args.top_p,
+            max_tokens=args.max_tokens,
+            rep_penalty=args.rep_penalty
         )
         
         predicted = parse_response(response)
