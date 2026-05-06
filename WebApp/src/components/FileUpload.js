@@ -99,7 +99,7 @@ const FileUpload = () => {
             fontFamily: 'Arial, sans-serif',
         }}>
             <div style={{
-                backgroundColor: '#4a90d9',
+                backgroundColor: '#b4d3b2',
                 width: '100%',
                 height: '70px',
                 display: 'flex',
