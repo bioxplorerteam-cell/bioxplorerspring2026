@@ -1,0 +1,25 @@
+INFO:     Started server process [2367510]
+INFO:     Waiting for application startup.
+INFO:     Loading LLaMA base model with 4-bit quantization: meta-llama/Llama-3.1-8B-Instruct
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:05,  1.79s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:03,  1.78s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:05<00:01,  1.76s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.21s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.42s/it]
+INFO:     Loading fine-tuned adapter: /p/realai/BioXplorer/LLama-BioXplorer/mesh_extraction/mesh_finetuned_constrained_20260406_035727
+INFO:     LLaMA fine-tuned model loaded successfully (4-bit quantized) with attention enabled
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:37086 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37086 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     Processing file: BioXplorer_Technical_Report.pdf
+INFO:     Extracted 15533 characters from PDF
+INFO:     Extracted abstract with 206 words
+INFO:     Generating MeSH terms...
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+INFO:     LLaMA response: ["Artificial Intelligence", "Humans", "Information Storage and Retrieval", "Internet", "Natural Language Processing", "National Library of Medicine (U.S.)", "United States"]...
+INFO:     Extracted 7 MeSH terms: ['Artificial Intelligence', 'Humans', 'Information Storage and Retrieval', 'Internet', 'Natural Language Processing', 'National Library of Medicine (U.S.)', 'United States']
+INFO:     Generated attention for 'Artificial Intelligence': min=0.020, max=0.900
+INFO:     Generated attention for 'Humans': min=0.020, max=0.380
+INFO:     Generated attention for 'Information Storage and Retrieval': min=0.020, max=0.900
+INFO:     Generated attention for 'Internet': min=0.020, max=0.380
+INFO:     Generated attention for 'Natural Language Processing': min=0.020, max=0.900
+INFO:     Generated attention for 'National Library of Medicine (U.S.)': min=0.020, max=0.900
+INFO:     Generated attention for 'United States': min=0.020, max=0.340
+INFO:     2600:4040:23c9:3b00:85f7:630d:6bf1:eeec:0 - "POST /upload HTTP/1.1" 200 OK

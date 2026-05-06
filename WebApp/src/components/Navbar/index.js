@@ -28,9 +28,6 @@ const Navbar = () => {
                     <NavLink to="/download" activeStyle>
                         Download Results
                     </NavLink>
-                    <NavLink to="/biogpt" activeStyle>
-                        BioGPT
-                    </NavLink>
                     <NavLink to="/contactUs" activeStyle>
                         Contact Us
                     </NavLink>

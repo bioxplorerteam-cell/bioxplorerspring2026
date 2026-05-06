@@ -36,7 +36,7 @@ def load_finetuned_model(base_model_path: str, adapter_path: str):
 
 
 def extract_with_finetuned(model, tokenizer, abstract: str, title: str = "", device: str = "cuda", 
-                          temperature: float = 0.7, top_p: float = 0.97, max_tokens: int = 1280, 
+                          temperature: float = 0.0, top_p: float = 0.97, max_tokens: int = 1280, 
                           rep_penalty: float = 1.02) -> str:
     """Extract entities using fine-tuned model with configurable generation parameters"""
     
@@ -94,7 +94,7 @@ Return ONLY a JSON array. Extract generously - completeness is more important th
             max_new_tokens=max_tokens,
             temperature=temperature,
             top_p=top_p,
-            do_sample=True,
+            do_sample=(temperature > 0.0),
             repetition_penalty=rep_penalty,
             pad_token_id=tokenizer.eos_token_id
         )
@@ -115,7 +115,7 @@ def main():
     parser.add_argument('--max_samples', type=int, default=10, help='Number of samples to process')
     parser.add_argument('--skip', type=int, default=0, help='Articles to skip')
     parser.add_argument('--output_file', type=str, default=None, help='Output JSON file')
-    parser.add_argument('--temperature', type=float, default=0.7, help='Sampling temperature (0.1-1.0)')
+    parser.add_argument('--temperature', type=float, default=0.0, help='Sampling temperature (0 for deterministic)')
     parser.add_argument('--top_p', type=float, default=0.97, help='Nucleus sampling threshold')
     parser.add_argument('--max_tokens', type=int, default=1280, help='Max new tokens to generate')
     parser.add_argument('--rep_penalty', type=float, default=1.02, help='Repetition penalty')

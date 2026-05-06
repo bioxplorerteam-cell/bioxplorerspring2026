@@ -157,15 +157,14 @@ def extract_entities(model, tokenizer, abstract: str, title: str = "",
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=max_length)
     inputs = {k: v.to(device) for k, v in inputs.items()}
     
-    # Generate with optimized parameters
+    # Generate with deterministic greedy decoding (temperature=0 → do_sample=False)
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=768,  # Increased for better coverage of multiple entities
-            temperature=0.3,  # Slightly higher for diversity while maintaining quality
-            top_p=0.9,  # Nucleus sampling to reduce hallucinations
-            do_sample=True,  # Enable sampling with top_p
-            repetition_penalty=1.1,  # Prevent repetitive outputs
+            max_new_tokens=768,
+            temperature=0.0,
+            do_sample=False,  # Greedy decoding for fully deterministic output
+            repetition_penalty=1.1,
             pad_token_id=tokenizer.eos_token_id
         )
     

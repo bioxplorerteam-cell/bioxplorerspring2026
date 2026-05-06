@@ -13,7 +13,6 @@ import Home from "./pages";
 import Events from "./pages/search";
 import AnnualReport from "./pages/upload";
 import Download from "./pages/download";
-import BioGPT from "./pages/biogpt";
 // import Teams from "./pages/team";
 import Blogs from "./pages/contactUs";
 // import SignUp from "./pages/signup";
@@ -33,7 +32,6 @@ function App() {
                     element={<AnnualReport />}
                 />
                 <Route path="/download" element={<Download />} />
-                <Route path="/biogpt" element={<BioGPT />} />
                 <Route path="/contactUs" element={<Blogs />} />
                 {/* <Route
                     path="/sign-up"

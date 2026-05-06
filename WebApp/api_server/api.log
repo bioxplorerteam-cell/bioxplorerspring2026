@@ -1,0 +1,104 @@
+nohup: ignoring input
+INFO:     Started server process [336291]
+INFO:     Waiting for application startup.
+INFO:     CUDA available: True
+Device set to use cuda:0
+INFO:     Loaded NER model d4data/biomedical-ner-all
+INFO:     Loading LLaMA base model with 4-bit quantization: meta-llama/Llama-3.1-8B-Instruct
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:05,  1.94s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:03,  1.85s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:05<00:01,  1.79s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.23s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.46s/it]
+INFO:     Loading fine-tuned adapter: /p/realai/BioXplorer/LLama-BioXplorer/mesh_extraction/mesh_finetuned_58k_a100_20260202_020721
+INFO:     LLaMA fine-tuned model loaded successfully (4-bit quantized) with attention enabled
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5001 (Press CTRL+C to quit)
+INFO:     128.143.71.92:0 - "GET /docs HTTP/1.1" 200 OK
+INFO:     Processing file: nihms-989939.pdf
+INFO:     Extracted 64317 characters from PDF
+INFO:     Extracted abstract with 206 words
+INFO:     Generating MeSH terms...
+INFO:     LLaMA response: Here is the list of extracted MeSH Terms:
+
+* Adenocarcinoma, Clear Cell
+* Animals
+* Antineoplastic Agents, Phytogenic
+* Benzoxazines
+* Carcinogens
+* Cell Cycle Proteins
+* DNA-Binding Proteins
+* Dioxol...
+INFO:     Extracted 0 MeSH terms: []
+INFO:     199.111.224.50:0 - "POST /upload HTTP/1.1" 200 OK
+INFO:     Processing file: The #SeePainMoreClearly Phase II Pain in Dementia Social Media Campaign- Implementation and Evaluation Study.pdf
+INFO:     Extracted 90968 characters from PDF
+INFO:     Extracted abstract with 129 words
+INFO:     Generating MeSH terms...
+INFO:     LLaMA response: ["Dementia", "Humans"]...
+INFO:     Extracted 2 MeSH terms: ['Dementia', 'Humans']
+INFO:     Generated attention for 'Dementia': min=0.003, max=0.900
+INFO:     Generated attention for 'Humans': min=0.003, max=0.340
+INFO:     199.111.224.2:0 - "POST /upload HTTP/1.1" 200 OK
+INFO:     Processing file: The #SeePainMoreClearly Phase II Pain in Dementia Social Media Campaign- Implementation and Evaluation Study.pdf
+INFO:     Extracted 90968 characters from PDF
+INFO:     Extracted abstract with 129 words
+INFO:     Generating MeSH terms...
+INFO:     LLaMA response: ["Aged", "Humans"]...
+INFO:     Extracted 2 MeSH terms: ['Aged', 'Humans']
+INFO:     Generated attention for 'Aged': min=0.002, max=0.340
+INFO:     Generated attention for 'Humans': min=0.002, max=0.340
+INFO:     199.111.224.2:0 - "POST /upload HTTP/1.1" 200 OK
+INFO:     Processing file: Machine learning for modeling the progression of Alzheimer disease dementia using clinical data- a systematic literature review.pdf
+INFO:     Extracted 59269 characters from PDF
+INFO:     Extracted abstract with 123 words
+INFO:     Generating MeSH terms...
+INFO:     LLaMA response: ["Alzheimer disease", "Dementia", "Electronic health records", "Humans"]...
+INFO:     Extracted 4 MeSH terms: ['Alzheimer disease', 'Dementia', 'Electronic health records', 'Humans']
+INFO:     Generated attention for 'Alzheimer disease': min=0.001, max=0.900
+INFO:     Generated attention for 'Dementia': min=0.002, max=0.900
+INFO:     Generated attention for 'Electronic health records': min=0.001, max=0.900
+INFO:     Generated attention for 'Humans': min=0.003, max=0.340
+INFO:     199.111.224.2:0 - "POST /upload HTTP/1.1" 200 OK
+INFO:     Processing file: Federated_Explainable_AI-based_Alzheimers_Disease.pdf
+INFO:     Extracted 104033 characters from PDF
+INFO:     Extracted abstract with 5397 words
+INFO:     Generating MeSH terms...
+INFO:     LLaMA response:  modality [5]; they
+are not able to collaborate to make predictions [6]; they do
+not provide insights into the decision-making process [7];
+and they do not operate on decentralized data [8]. In this
+w...
+INFO:     Extracted 0 MeSH terms: []
+INFO:     199.111.224.2:0 - "POST /upload HTTP/1.1" 200 OK
+INFO:     Processing file: A Natural Language Processing Algorithm for Classifying Suicidal Behaviors in Alzheimer's Disease and Related Dementia Patients- Development and Validation Using Electronic Health Records Data.pdf
+INFO:     Extracted 50684 characters from PDF
+INFO:     Extracted abstract with 229 words
+INFO:     Generating MeSH terms...
+INFO:     LLaMA response: [
+  "Alzheimer Disease",
+  "Aged, 80 and over",
+  "Dementia, Vascular",
+  "Female",
+  "Humans",
+  "International Classification of Diseases",
+  "Language",
+  "Male",
+  "Machine Learning",
+  "Natural L...
+INFO:     Extracted 14 MeSH terms: ['Alzheimer Disease', 'Aged, 80 and over', 'Dementia, Vascular', 'Female', 'Humans', 'International Classification of Diseases', 'Language', 'Male', 'Machine Learning', 'Natural Language Processing', 'Precision Medicine', 'Semantics', 'Self-Injurious Behavior', 'Suicide, Attempted']
+INFO:     Generated attention for 'Alzheimer Disease': min=0.001, max=0.900
+INFO:     Generated attention for 'Aged, 80 and over': min=0.001, max=0.650
+INFO:     Generated attention for 'Dementia, Vascular': min=0.001, max=0.620
+INFO:     Generated attention for 'Female': min=0.002, max=0.340
+INFO:     Generated attention for 'Humans': min=0.001, max=0.500
+INFO:     Generated attention for 'International Classification of Diseases': min=0.001, max=0.900
+INFO:     Generated attention for 'Language': min=0.001, max=0.900
+INFO:     Generated attention for 'Male': min=0.001, max=0.340
+INFO:     Generated attention for 'Machine Learning': min=0.001, max=0.900
+INFO:     Generated attention for 'Natural Language Processing': min=0.001, max=0.900
+INFO:     Generated attention for 'Precision Medicine': min=0.001, max=0.900
+INFO:     Generated attention for 'Semantics': min=0.001, max=0.620
+INFO:     Generated attention for 'Self-Injurious Behavior': min=0.001, max=0.900
+INFO:     Generated attention for 'Suicide, Attempted': min=0.001, max=0.580
+INFO:     199.111.224.2:0 - "POST /upload HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [336291]
